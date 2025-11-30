@@ -2,7 +2,7 @@ package com.azxdev.moviesapp.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieResult(
+data class MovieDetailsShort(
     @SerializedName("#TITLE")
     val title: String,
     @SerializedName("#YEAR")
@@ -20,9 +20,9 @@ data class MovieResult(
     @SerializedName("#IMDB_IV")
     val imdbIv: String,
     @SerializedName("#IMG_POSTER")
-    val imgPoster: String,
+    val imgPoster: String?,
     @SerializedName("photo_width")
-    val photoWidth: Long,
+    val photoWidth: Long?,
     @SerializedName("photo_height")
-    val photoHeight: Long,
+    val photoHeight: Long?,
 )

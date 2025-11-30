@@ -5,7 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.azxdev.moviesapp.ui.screens.MainScreen
+import com.azxdev.moviesapp.ui.screens.MovieDetailsScreen
 
 @Composable
 fun AppNavigation(modifier: Modifier) {
@@ -18,7 +20,10 @@ fun AppNavigation(modifier: Modifier) {
     )
     {
         composable<ScreenDestination.HomeScreenDestination> {
-            MainScreen()
+            MainScreen(navController = navController)
+        }
+        composable<ScreenDestination.MovieDetailsScreenDestination> {
+            MovieDetailsScreen()
         }
     }
 }
