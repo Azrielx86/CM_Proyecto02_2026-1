@@ -11,9 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,11 +37,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -66,7 +76,9 @@ fun MovieDetailsScreen(
             topBar = {
                 TopAppBar(
                     title = {
-                        Text(details.name)
+                        details.name?.let {
+                            Text(it)
+                        }
                     },
                     navigationIcon = {
                         IconButton(onClick = {
@@ -97,11 +109,13 @@ fun MovieDetailsScreen(
                 }
                 item {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = details.name,
-                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        details.name?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -137,28 +151,78 @@ fun MovieDetailsScreen(
                             }
                         }
                         Spacer(modifier = Modifier.height(16.dp))
+                        details.description?.let {
+                            Text(
+                                text = stringResource(R.string.description),
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                         Text(
-                            text = stringResource(R.string.description),
+                            text = stringResource(R.string.cast),
                             style = MaterialTheme.typography.titleMedium
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = details.description,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            movieDetails!!.main.castV2.firstOrNull()?.credits?.let { castList ->
+                                items(castList) { castMember ->
+                                    Column(
+                                        horizontalAlignment = CenterHorizontally,
+                                        modifier = Modifier.width(80.dp)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(80.dp)
+                                                .clip(RoundedCornerShape(8.dp)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            val errorPainter =
+                                                rememberVectorPainter(image = Icons.Default.Face)
+                                            AsyncImage(
+                                                model = castMember.name.primaryImage?.url,
+                                                contentDescription = castMember.name.nameText?.text,
+                                                contentScale = ContentScale.Crop,
+                                                modifier = Modifier.fillMaxSize(),
+                                                error = errorPainter
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        castMember.name.nameText?.text.let {
+                                            if (it != null) {
+                                                Text(
+                                                    it,
+                                                    style = MaterialTheme.typography.bodySmall,
+                                                    textAlign = TextAlign.Center
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = stringResource(R.string.content_rating),
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = details.contentRating,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        details.contentRating?.let {
+                            Text(
+                                text = stringResource(R.string.content_rating),
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
 
                         details.review.let { review ->
+                            if (review == null) return@let
                             Text(
                                 text = stringResource(R.string.review),
                                 style = MaterialTheme.typography.titleMedium

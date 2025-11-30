@@ -15,4 +15,6 @@
     <string name="no_connectivity_error">No internet connection. Please check your connection and try again.</string>
     <string name="generic_error">An unexpected error occurred. Please try again later.</string>
     <string name="no_results">No results found</string>
+    <string name="cast">Cast</string>
+    <string name="unknown">Unknown</string>
 </resources>

@@ -9,6 +9,7 @@ data class MovieDetails(
     val description: String,
     val short: Short,
     val imdbId: String,
+    val main: Main
 )
 
 data class Short(
@@ -17,15 +18,15 @@ data class Short(
     @SerializedName("@type")
     val type: String,
     val url: String,
-    val name: String,
-    val image: String,
-    val description: String,
-    val review: Review,
-    val aggregateRating: AggregateRating,
-    val contentRating: String,
+    val name: String?,
+    val image: String?,
+    val description: String?,
+    val review: Review?,
+    val aggregateRating: AggregateRating?,
+    val contentRating: String?,
     val genre: List<String>,
-    val datePublished: String,
-    val keywords: String,
+    val datePublished: String?,
+    val keywords: String?,
     val creator: List<Creator>,
     val trailer: Trailer,
 )
@@ -95,37 +96,46 @@ data class Thumbnail(
     val type: String,
     val contentUrl: String,
 )
-data class ProductionStatus(
-    val currentProductionStage: CurrentProductionStage,
-    val productionStatusHistory: List<ProductionStatusHistory>,
-    val restriction: Any?,
-    @SerializedName("__typename")
-    val typename: String,
+
+data class Main(
+
+    val castV2: List<CastV2>,
+    val akas: Akas,
 )
 
-data class CurrentProductionStage(
+data class CastV2(
+    val credits: List<Credit>,
+)
+
+
+data class Credit(
+    val name: Name
+)
+
+data class Name(
     val id: String,
+    val nameText: NameText?,
+    val primaryImage: PrimaryImage?,
+)
+
+data class NameText(
+    val text: String?,
+)
+
+data class PrimaryImage(
+    val url: String?,
+    val width: Long?,
+    val height: Long?,
+)
+
+data class Akas(
+    val edges: List<AkaEdge>
+)
+
+data class AkaEdge(
+    val node: AkaNode,
+)
+
+data class AkaNode(
     val text: String,
-    @SerializedName("__typename")
-    val typename: String,
 )
-
-data class ProductionStatusHistory(
-    val status: Status,
-    @SerializedName("__typename")
-    val typename: String,
-)
-
-data class Status(
-    val id: String,
-    val text: String,
-    @SerializedName("__typename")
-    val typename: String,
-)
-
-data class ExternalLinks(
-    val total: Long,
-    @SerializedName("__typename")
-    val typename: String,
-)
-

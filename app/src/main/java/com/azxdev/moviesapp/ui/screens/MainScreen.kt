@@ -37,7 +37,7 @@ fun MainScreen(
     navController: NavController,
     viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>()
 ) {
-    var searchQuery by remember { mutableStateOf("Breaking") }
+    var searchQuery by remember { mutableStateOf("Maid dragon") }
     var searchResults by remember {
         mutableStateOf<MoviesDbSearchResponse?>(null)
     }
