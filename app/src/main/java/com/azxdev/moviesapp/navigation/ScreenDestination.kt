@@ -15,6 +15,6 @@ sealed interface ScreenDestination {
 
     @Serializable
     data class TrailerScreenDestination(
-        val videoId: String
+        val videoUri: String
     ) : ScreenDestination
 }

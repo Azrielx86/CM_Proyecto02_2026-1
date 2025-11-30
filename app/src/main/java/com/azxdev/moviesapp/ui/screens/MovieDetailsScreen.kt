@@ -31,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -134,7 +135,13 @@ fun MovieDetailsScreen(
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
                             Button(
-                                onClick = { navController.navigate(ScreenDestination.TrailerScreenDestination("${Constants.BASE_URL}/media/${movieDetails!!.imdbId}")) },
+                                onClick = {
+                                    navController.navigate(
+                                        ScreenDestination.TrailerScreenDestination(
+                                            "${Constants.BASE_URL}/media/${movieDetails!!.imdbId}"
+                                        )
+                                    )
+                                },
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Text(stringResource(R.string.watch_trailer))
@@ -248,7 +255,9 @@ fun MovieDetailsScreen(
                                 Column(modifier = Modifier.padding(16.dp)) {
                                     Text(
                                         text = review.name,
-                                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
+                                        style = MaterialTheme.typography.titleSmall.copy(
+                                            fontWeight = FontWeight.Bold
+                                        )
                                     )
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(

@@ -28,7 +28,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
         composable<ScreenDestination.TrailerScreenDestination> {
             val args = it.toRoute<ScreenDestination.TrailerScreenDestination>()
-            TrailerScreen(navController = navController, videoId = args.videoId)
+            TrailerScreen(navController = navController, videoId = args.videoUri)
         }
     }
 }
