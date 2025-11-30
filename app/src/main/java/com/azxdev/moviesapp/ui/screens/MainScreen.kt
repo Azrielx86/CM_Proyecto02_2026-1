@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,33 +50,35 @@ fun MainScreen(
         }
     }
 
-    Column(modifier = Modifier.padding(16.dp)) {
-        OutlinedTextField(
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            label = { Text("Search") },
-            modifier = Modifier.fillMaxWidth()
-        )
+    Scaffold() { innerPadding ->
+        Column(modifier = Modifier.padding(innerPadding)) {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search") },
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+            )
 
-        LazyColumn(
-            modifier = Modifier.padding(top = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(searchResults.movieDetailShorts) { movie ->
-                MovieResultCard(
-                    id = movie.imdbId,
-                    title = movie.title,
-                    year = movie.year,
-                    rank = movie.rank,
-                    image = movie.imgPoster,
-                    onClick = {
-                        navController.navigate(
-                            ScreenDestination.MovieDetailsScreenDestination(
-                                movieId = it
+            LazyColumn(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(searchResults.movieDetailShorts) { movie ->
+                    MovieResultCard(
+                        id = movie.imdbId,
+                        title = movie.title,
+                        year = movie.year,
+                        rank = movie.rank,
+                        image = movie.imgPoster,
+                        onClick = {
+                            navController.navigate(
+                                ScreenDestination.MovieDetailsScreenDestination(
+                                    movieId = it
+                                )
                             )
-                        )
-                    }
-                )
+                        }
+                    )
+                }
             }
         }
     }

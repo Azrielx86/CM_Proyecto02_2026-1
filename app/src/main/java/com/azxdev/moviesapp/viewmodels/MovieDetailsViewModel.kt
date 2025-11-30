@@ -1,8 +1,10 @@
 package com.azxdev.moviesapp.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.azxdev.moviesapp.Constants
 import com.azxdev.moviesapp.data.remote.model.MovieDetails
 import com.azxdev.moviesapp.data.repositories.MoviesDbRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +34,7 @@ class MovieDetailsViewModel @Inject constructor(
             try {
                 _movieDetails.value = moviesDbRepository.getMovieDetails(id)
             } catch (e: Exception) {
-                // Handle error
+                Log.d(Constants.LOG_TAG, "Error getting the movie info: $e")
             }
         }
     }

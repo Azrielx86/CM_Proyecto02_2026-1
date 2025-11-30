@@ -10,7 +10,7 @@ import com.azxdev.moviesapp.ui.screens.MainScreen
 import com.azxdev.moviesapp.ui.screens.MovieDetailsScreen
 
 @Composable
-fun AppNavigation(modifier: Modifier) {
+fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     NavHost(
@@ -23,7 +23,7 @@ fun AppNavigation(modifier: Modifier) {
             MainScreen(navController = navController)
         }
         composable<ScreenDestination.MovieDetailsScreenDestination> {
-            MovieDetailsScreen()
+            MovieDetailsScreen(navController = navController)
         }
     }
 }
