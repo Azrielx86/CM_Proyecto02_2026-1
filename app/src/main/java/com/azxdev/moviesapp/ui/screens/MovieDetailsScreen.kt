@@ -51,7 +51,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.azxdev.moviesapp.Constants
 import com.azxdev.moviesapp.R
+import com.azxdev.moviesapp.navigation.ScreenDestination
 import com.azxdev.moviesapp.viewmodels.MovieDetailsViewModel
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
@@ -132,7 +134,7 @@ fun MovieDetailsScreen(
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
                             Button(
-                                onClick = { uriHandler.openUri(details.trailer.embedUrl) },
+                                onClick = { navController.navigate(ScreenDestination.TrailerScreenDestination("${Constants.BASE_URL}/media/${movieDetails!!.imdbId}")) },
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Text(stringResource(R.string.watch_trailer))

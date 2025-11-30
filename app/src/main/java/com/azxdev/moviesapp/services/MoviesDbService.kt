@@ -3,6 +3,7 @@ package com.azxdev.moviesapp.services
 import com.azxdev.moviesapp.data.remote.model.MovieDetails
 import com.azxdev.moviesapp.data.remote.model.MoviesDbSearchResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MoviesDbService {
@@ -17,7 +18,4 @@ interface MoviesDbService {
         @Query("tt")
         tt: String
     ): MovieDetails
-
-    @GET("media")
-    suspend fun getMovieTrailer()
 }

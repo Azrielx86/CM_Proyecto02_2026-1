@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.azxdev.moviesapp.ui.screens.MainScreen
 import com.azxdev.moviesapp.ui.screens.MovieDetailsScreen
+import com.azxdev.moviesapp.ui.screens.TrailerScreen
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
@@ -24,6 +25,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
         composable<ScreenDestination.MovieDetailsScreenDestination> {
             MovieDetailsScreen(navController = navController)
+        }
+        composable<ScreenDestination.TrailerScreenDestination> {
+            val args = it.toRoute<ScreenDestination.TrailerScreenDestination>()
+            TrailerScreen(navController = navController, videoId = args.videoId)
         }
     }
 }
