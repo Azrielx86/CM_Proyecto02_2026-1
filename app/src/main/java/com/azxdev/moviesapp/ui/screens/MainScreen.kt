@@ -91,7 +91,8 @@ fun MainScreen(
                     },
                     label = { Text(stringResource(R.string.search)) },
                     modifier = Modifier.fillMaxWidth(),
-                    isError = isError
+                    isError = isError,
+                    singleLine = true
                 )
                 if (isError) {
                     Text(
