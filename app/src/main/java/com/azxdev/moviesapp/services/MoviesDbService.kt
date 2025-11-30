@@ -17,4 +17,7 @@ interface MoviesDbService {
         @Query("tt")
         tt: String
     ): MovieDetails
+
+    @GET("media")
+    suspend fun getMovieTrailer()
 }

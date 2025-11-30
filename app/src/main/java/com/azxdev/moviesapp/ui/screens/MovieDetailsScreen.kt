@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -59,6 +60,7 @@ fun MovieDetailsScreen(
     navController: NavController,
     viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val movieDetails by viewModel.movieDetails.collectAsState()
     val uriHandler = LocalUriHandler.current
 
@@ -115,7 +117,16 @@ fun MovieDetailsScreen(
                                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
                             )
                             Spacer(modifier = Modifier.height(16.dp))
+                            movieDetails!!.main.akas.let { akas ->
+                                Text(
+                                    text = akas.edges.getOrNull(0)?.node?.text ?: context.getString(
+                                        R.string.unknown
+                                    )
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }
                         }
+
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)

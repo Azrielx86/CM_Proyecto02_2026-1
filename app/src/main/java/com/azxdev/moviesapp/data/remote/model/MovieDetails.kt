@@ -129,13 +129,13 @@ data class PrimaryImage(
 )
 
 data class Akas(
-    val edges: List<AkaEdge>
+    val edges: List<AkaEdge?>
 )
 
 data class AkaEdge(
-    val node: AkaNode,
+    val node: AkaNode?,
 )
 
 data class AkaNode(
-    val text: String,
+    val text: String?,
 )
