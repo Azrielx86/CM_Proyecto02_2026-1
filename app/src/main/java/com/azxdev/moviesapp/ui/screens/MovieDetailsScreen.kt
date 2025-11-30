@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,11 +34,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.azxdev.moviesapp.R
 import com.azxdev.moviesapp.viewmodels.MovieDetailsViewModel
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
@@ -69,11 +70,11 @@ fun MovieDetailsScreen(
                     },
                     navigationIcon = {
                         IconButton(onClick = {
-                            navController.popBackStack();
+                            navController.popBackStack()
                         }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Localized description"
+                                contentDescription = stringResource(R.string.back_button_description)
                             )
                         }
                     },
@@ -109,13 +110,13 @@ fun MovieDetailsScreen(
                                 onClick = { uriHandler.openUri(details.trailer.embedUrl) },
                                 modifier = Modifier.weight(1f)
                             ) {
-                                Text("Watch Trailer")
+                                Text(stringResource(R.string.watch_trailer))
                             }
                             OutlinedButton(
                                 onClick = { uriHandler.openUri("https://www.imdb.com/title/${movieDetails!!.imdbId}") },
                                 modifier = Modifier.weight(1f)
                             ) {
-                                Text("Go to IMDB")
+                                Text(stringResource(R.string.go_to_imdb))
                             }
                         }
                         Spacer(modifier = Modifier.height(16.dp))
@@ -137,7 +138,7 @@ fun MovieDetailsScreen(
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Description",
+                            text = stringResource(R.string.description),
                             style = MaterialTheme.typography.titleMedium
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -147,7 +148,7 @@ fun MovieDetailsScreen(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Content Rating",
+                            text = stringResource(R.string.content_rating),
                             style = MaterialTheme.typography.titleMedium
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -159,7 +160,7 @@ fun MovieDetailsScreen(
 
                         details.review.let { review ->
                             Text(
-                                text = "Review",
+                                text = stringResource(R.string.review),
                                 style = MaterialTheme.typography.titleMedium
                             )
                             Spacer(modifier = Modifier.height(8.dp))
@@ -174,7 +175,10 @@ fun MovieDetailsScreen(
                                     )
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
-                                        text = "by ${review.author.name}",
+                                        text = stringResource(
+                                            R.string.review_by,
+                                            review.author.name
+                                        ),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )

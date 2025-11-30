@@ -18,10 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.azxdev.moviesapp.R
 
 
 @Composable
@@ -74,8 +76,8 @@ fun MovieResultCard(
                     .padding(12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Year: $year", style = MaterialTheme.typography.bodyMedium)
-                Text(text = "Rank: $rank", style = MaterialTheme.typography.bodyMedium)
+                Text(text = stringResource(R.string.year, year), style = MaterialTheme.typography.bodyMedium)
+                Text(text = stringResource(R.string.rank, rank), style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
