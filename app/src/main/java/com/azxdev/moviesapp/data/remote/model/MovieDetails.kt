@@ -99,7 +99,7 @@ data class Thumbnail(
 )
 
 data class Main(
-
+    val ratingsSummary: RatingsSummary2?,
     val castV2: List<CastV2>,
     val akas: Akas,
 )
@@ -151,11 +151,28 @@ data class ReleaseYear(
     val endYear: Long,
 )
 
+data class RatingsSummary2(
+    val topRanking: TopRanking,
+    val aggregateRating: Double,
+    val voteCount: Long,
+    val notificationText: Any?,
+)
+
+data class TopRanking(
+    val id: String,
+    val text: Text2,
+    val rank: Long,
+)
+
+data class Text2(
+    val value: String
+)
+
 data class ReleaseDate(
     val day: Long,
     val month: Long,
     val year: Long
-){
+) {
     override fun toString(): String {
         return "$day/$month/$year"
     }

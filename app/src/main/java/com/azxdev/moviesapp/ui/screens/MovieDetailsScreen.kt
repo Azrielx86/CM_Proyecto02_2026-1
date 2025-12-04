@@ -176,6 +176,18 @@ fun MovieDetailsScreen(
                                                 fontWeight = FontWeight.Bold
                                             )
                                         )
+                                        movieDetails!!.main.ratingsSummary.let { ratingsSummary ->
+                                            if (ratingsSummary?.topRanking != null) {
+                                                Text(
+                                                    text = stringResource(
+                                                        R.string.imdb_rank,
+                                                        "${ratingsSummary.topRanking.rank}",
+                                                        ratingsSummary.topRanking.text.value
+                                                    ),
+                                                    style = MaterialTheme.typography.bodySmall
+                                                )
+                                            }
+                                        }
                                         Text(
                                             text = stringResource(
                                                 R.string.based_on_x_reviews,

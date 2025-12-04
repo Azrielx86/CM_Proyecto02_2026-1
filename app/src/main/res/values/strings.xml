@@ -21,4 +21,6 @@
     <string name="akas">Also known as</string>
     <string name="based_on_x_reviews">Based on %1$s reviews</string>
     <string name="rating">Rating</string>
+    <string name="imdb_rank">IMDb rank: %1$s on %2$s</string>
+    <string name="imdb_rank_unavailable">IMDb rank unavailable</string>
 </resources>
