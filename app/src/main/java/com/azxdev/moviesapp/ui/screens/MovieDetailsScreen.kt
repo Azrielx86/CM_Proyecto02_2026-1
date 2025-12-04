@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,7 +32,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -43,7 +43,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -63,7 +62,6 @@ fun MovieDetailsScreen(
     navController: NavController,
     viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
     val movieDetails by viewModel.movieDetails.collectAsState()
     val uriHandler = LocalUriHandler.current
 
@@ -119,15 +117,17 @@ fun MovieDetailsScreen(
                                 text = it,
                                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
                             )
-                            Spacer(modifier = Modifier.height(16.dp))
-                            movieDetails!!.main.akas.let { akas ->
-                                Text(
-                                    text = akas.edges.getOrNull(0)?.node?.text ?: context.getString(
-                                        R.string.unknown
-                                    )
-                                )
-                                Spacer(modifier = Modifier.height(16.dp))
-                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
+                        movieDetails!!.top.releaseDate.let { releaseDate ->
+                            Text(
+                                text = stringResource(
+                                    R.string.release_date,
+                                    releaseDate
+                                ), style = MaterialTheme.typography.bodyMedium
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
                         }
 
                         Row(
@@ -154,8 +154,42 @@ fun MovieDetailsScreen(
                             }
                         }
                         Spacer(modifier = Modifier.height(16.dp))
+                        details.aggregateRating?.let {
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(8.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(16.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Star,
+                                        contentDescription = stringResource(R.string.rating),
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                    Spacer(modifier = Modifier.width(16.dp))
+                                    Column {
+                                        Text(
+                                            text = "${it.ratingValue}/10",
+                                            style = MaterialTheme.typography.headlineSmall.copy(
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        )
+                                        Text(
+                                            text = stringResource(
+                                                R.string.based_on_x_reviews,
+                                                it.ratingCount
+                                            ),
+                                            style = MaterialTheme.typography.bodySmall
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Genres",
+                            text = stringResource(R.string.genres),
                             style = MaterialTheme.typography.titleMedium
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -183,6 +217,7 @@ fun MovieDetailsScreen(
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                         }
+
                         Text(
                             text = stringResource(R.string.cast),
                             style = MaterialTheme.typography.titleMedium
@@ -238,6 +273,22 @@ fun MovieDetailsScreen(
                                 text = it,
                                 style = MaterialTheme.typography.bodyLarge
                             )
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
+
+                        movieDetails!!.main.akas.let { aka ->
+                            Text(
+                                text = stringResource(R.string.akas),
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            aka.edges.forEach { edge ->
+                                Text(
+                                    text = "- ${edge?.node?.text}",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
                             Spacer(modifier = Modifier.height(16.dp))
                         }
 

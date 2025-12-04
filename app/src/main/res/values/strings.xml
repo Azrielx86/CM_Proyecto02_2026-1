@@ -17,4 +17,8 @@
     <string name="no_results">No results found</string>
     <string name="cast">Cast</string>
     <string name="unknown">Unknown</string>
+    <string name="release_date">Release date: %1$s</string>
+    <string name="akas">Also known as</string>
+    <string name="based_on_x_reviews">Based on %1$s reviews</string>
+    <string name="rating">Rating</string>
 </resources>

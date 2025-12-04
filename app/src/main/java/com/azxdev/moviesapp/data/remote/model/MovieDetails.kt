@@ -9,6 +9,7 @@ data class MovieDetails(
     val description: String,
     val short: Short,
     val imdbId: String,
+    val top: Top,
     val main: Main
 )
 
@@ -139,3 +140,23 @@ data class AkaEdge(
 data class AkaNode(
     val text: String?,
 )
+
+data class Top(
+    val releaseYear: ReleaseYear,
+    val releaseDate: ReleaseDate
+)
+
+data class ReleaseYear(
+    val year: Long,
+    val endYear: Long,
+)
+
+data class ReleaseDate(
+    val day: Long,
+    val month: Long,
+    val year: Long
+){
+    override fun toString(): String {
+        return "$day/$month/$year"
+    }
+}
